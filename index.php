@@ -7,5 +7,6 @@
 </head>
 <body>
     <h1>PHP Strong Password Generator</h1>
+    <p>Generate a strong password using PHP.</p>
 </body>
 </html>
