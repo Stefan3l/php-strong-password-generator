@@ -14,10 +14,11 @@ include_once 'functions.php'; // Include the functions file to use the generateP
 </head>
 <body>
     <h1 class="text-center mt-5">Generator Password</h1>
+    <hr>
     <div class="container  mt-5 mb-5 d-flex justify-content-center align-items-center flex-column">
     <form class="d-flex flex-column w-50" action="result.php"   method="GET">
         <label for="length">Length for password: </label>
-        <input type="number" id="length" name="length" min="1" max="20" value="12">
+        <input type="number" id="length" name="length" min="5" max="20" value="12">
         <div class="mt-3 d-flex gap-3">
         <label for="characters">Consenti ripetizioni di uno o piu caratteri:</label>
         <input type="checkbox" id="characters" name="characters" value="yes" >

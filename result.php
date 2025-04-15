@@ -32,6 +32,7 @@ if (empty($password)) {
 </head>
 <body>
     <h1 class="text-center mt-5">This is your Password</h1>
+    <hr>
     <div class="card-body d-flex justify-content-center align-items-center flex-column mt-5 mb-5 gap-5">
        <h2 class="text-center text-danger">
            <?php 
