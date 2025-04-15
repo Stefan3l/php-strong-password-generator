@@ -2,18 +2,40 @@
 
 // create a password generator function
 
-function generatePassword($length = 12) {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+[]{}|;:,.<>?'; // Include special characters
-    $charactersLength = strlen($characters); // Get the length of the characters string
-    $randomString = ''; // Initialize an empty string to hold the generated password
+function generatePassword($length = 12, $useNumbers = true, $useLetters = true, $useSpecialChars = true, $allowRepetition = true) {
+    $numbers = '0123456789';
+    $letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $special = '!@#$%^&*()_+[]{}|;:,.<>?';
 
-    // Loop to generate a password of the specified length
-    for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)]; // Generate a random character from the characters string
+    // Initialize the character set based on user preferences
+    $characterSet = '';
+    if ($useNumbers) $characterSet .= $numbers;
+    if ($useLetters) $characterSet .= $letters;
+    if ($useSpecialChars) $characterSet .= $special;
+
+    // If no character set is selected, return an empty string
+    if (empty($characterSet)) {
+        return '';
     }
-    return $randomString;
+
+    $characterSetLength = strlen($characterSet); // Get the length of the character set
+    $password = '';
+
+    if ($allowRepetition) {
+        // Generate password with repetition allowed
+        for ($i = 0; $i < $length; $i++) {
+            $password .= $characterSet[rand(0, $characterSetLength - 1)];
+        }
+    } else {
+        // Generate password without repetition
+        if ($length > $characterSetLength) {
+            return 'Password length exceeds character set size.';
+        }
+        $passwordArray = str_split($characterSet); // Convert character set to an array
+        shuffle($passwordArray); // Shuffle the array to randomize the order
+        $password = implode('', array_slice($passwordArray, 0, $length)); // Take the first 'length' characters
+    }
+    return $password; // Return the generated password
+
 }
-
-
-
 ?>

@@ -1,6 +1,24 @@
 <?php 
 
 include 'functions.php'; // Include the functions file to use the generatePassword function
+include 'functionForm.php'; // Include the form validation function
+
+
+
+// Get parameters from the GET request
+$length = isset($_GET['length']) ? (int)$_GET['length'] : 12;
+$useNumbers = isset($_GET['numbers']) && $_GET['numbers'] === 'yes';
+$useLetters = isset($_GET['letters']) && $_GET['letters'] === 'yes';
+$useSpecialChars = isset($_GET['special']) && $_GET['special'] === 'yes';
+$allowRepetition = isset($_GET['characters']) && $_GET['characters'] === 'yes';
+
+// Generate the password using the function
+$password = generatePassword($length, $useNumbers, $useLetters, $useSpecialChars, $allowRepetition); // Call the function to generate the password
+
+// Check for errors in the input parameters
+if (empty($password)) {
+    $error = "Seleziona almeno un tipo di carattere per generare la password.";
+}
 
 ?>
 
@@ -14,11 +32,18 @@ include 'functions.php'; // Include the functions file to use the generatePasswo
 </head>
 <body>
     <h1 class="text-center mt-5">This is your Password</h1>
-    <h2 class="text-center mt-5 ">
-        <?php 
-         echo generatePassword($_GET['length']); // Check if length is set in the GET request and generate password
-        ?>
-    </h2>
+    <div class="card-body d-flex justify-content-center align-items-center flex-column mt-5 mb-5 gap-5">
+       <h2 class="text-center text-danger">
+           <?php 
+           if (isset($error)) {
+               echo htmlspecialchars($error);
+           } else {
+               echo htmlspecialchars($password);
+           }
+           ?>
+       </h2>
+       <a href="index.php" class="btn btn-primary">Generate Another Password</a>
+    </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
