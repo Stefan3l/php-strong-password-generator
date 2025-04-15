@@ -34,6 +34,11 @@ if (empty($password)) {
     <h1 class="text-center mt-5">This is your Password</h1>
     <hr>
     <div class="card-body d-flex justify-content-center align-items-center flex-column mt-5 mb-5 gap-5">
+        <?php if (!isset($error)) : ?>
+        <h2>
+            La tua password di <?php echo htmlspecialchars($length); ?> caratteri è:
+        </h2>
+        <?php endif; ?>
        <h2 class="text-center text-danger">
            <?php 
            if (isset($error)) {
